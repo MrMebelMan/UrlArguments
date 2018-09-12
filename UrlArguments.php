@@ -49,7 +49,18 @@ class ExtUrlArguments {
 	function arg( &$parser, $name = '', $default = '' ) {
 		global $wgRequest;
 		$parser->disableCache();
-		return $wgRequest->getVal($name, $default);
+
+		if ( $name !== 'ModelType' ) {
+			die("Only the 'ModelType' argument is allowed!");
+		}
+
+		$arg_value = $wgRequest->getVal($name, $default);
+
+		if ( $arg_value < 1 || $arg_value > 2 ) {
+			die('Incorrect argument value! Only 1 and 2 are allowed.');
+		}
+
+		return $arg_value;
 	}
 }
 
