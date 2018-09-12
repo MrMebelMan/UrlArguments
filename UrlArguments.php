@@ -40,24 +40,21 @@ function wfUrlArguments() {
 function wfUrlArgumentsLanguageGetMagic( &$magicWords, $langCode ) {
 	switch ( $langCode ) {
 		default:
-			$magicWords['arg']    = array( 0, 'arg' );
+			$magicWords['arg'] = array( 0, 'arg' );
 	}
 	return true;
 }
 
 class ExtUrlArguments {
-	function arg( &$parser, $name = '', $default = '' ) {
+	function arg( &$parser, $name = '', $default = NULL ) {
 		global $wgRequest;
-		$parser->disableCache();
 
-		if ( $name !== 'ModelType' ) {
-			die("Only the 'ModelType' argument is allowed!");
-		}
+		$parser->disableCache();
 
 		$arg_value = $wgRequest->getVal($name, $default);
 
-		if ( $arg_value < 1 || $arg_value > 2 ) {
-			die('Incorrect argument value! Only 1 and 2 are allowed.');
+		if ( $arg_value !== NULL && ( $arg_value < 1 || $arg_value > 2 ) ) {
+            return NULL;
 		}
 
 		return $arg_value;
