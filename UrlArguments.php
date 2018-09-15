@@ -49,7 +49,7 @@ class ExtUrlArguments {
 	function arg( &$parser, $name = '', $default = NULL ) {
 		global $wgRequest;
 
-		$parser->disableCache();
+		$parser->disableCache();  // TODO: is this necessary?
 
 		$arg_value = $wgRequest->getVal($name, $default);
 
